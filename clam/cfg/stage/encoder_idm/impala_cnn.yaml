@@ -1,0 +1,36 @@
+name: "impala_cnn_encoder"
+
+scale: 4
+
+# define Impala-CNN architecture
+arch:
+  - features: ${multiply:${...scale},16}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},32}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},32}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},32}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+
+output_embedding_dim: 256
+
+# add batchnorm
+add_bn: True
+
+# add residual connections
+add_residual: True
+
+# add max pool layer
+add_max_pool: True
+
+# kernel size for max pool layer
+mp_kernel_size: 2

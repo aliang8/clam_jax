@@ -1,0 +1,106 @@
+defaults:
+  - base
+  - encoder_idm: mlp
+  - encoder: mlp
+  - decoder: mlp
+  - vq: vq
+
+name: lam
+
+hp_name: ${resolve_lam_name:${data.context_len},${stage.encoder.name},${stage.vq.hp_name},${stage.idm.apply_quantization},${stage.idm.vq.code_dim},${stage.idm.latent_action_dim},${stage.idm.separate_categorical_la}}_le-${stage.la_decoder.num_labelled_examples}_dist-${stage.idm.distributional_la}
+
+image_obs: ${env.image_obs}
+
+idm: 
+    image_obs: ${env.image_obs}
+    encoder_cfg: ${stage.encoder_idm}
+    latent_action_dim: 8
+
+    # hidden dimensions for MLP before the VQ layer to predict the latent actions
+    la_mlp_dims: 
+        - 128
+        - 128
+        - ${stage.idm.latent_action_dim}
+
+    patch_with_conv: ${..patch_with_conv}
+
+    # whether to use difference between states as input to IDM
+    use_state_diff: False
+
+    # for ablation whether to quantize the latent actions
+    apply_quantization: False
+    vq: ${stage.vq}
+
+    # for when we use an LSTM
+    lstm_hidden_dim: ${..lstm_hidden_dim}
+    latent_action_prior: uniform
+    kl_weight: 0.001
+
+    separate_categorical_la: ${..separate_categorical_la}
+    distributional_la: ${..distributional_la}
+fdm: 
+    image_obs: ${env.image_obs}
+    encoder_cfg: ${stage.encoder}
+    decoder_cfg: ${stage.decoder}
+
+    patch_with_conv: ${..patch_with_conv}
+
+    k_step_preds: ${..k_step_preds}
+    lstm_hidden_dim: ${..lstm_hidden_dim}
+
+
+# for categorical + continuous LA space
+separate_categorical_la: False
+
+# distributional latent actions
+# predict mean and logvar, apply KL div to prior
+distributional_la: False
+
+
+# patchify image with a convolution layer instead of einops reshape
+patch_with_conv: False
+
+# for continuous action LAM, predicts two level of latent actions
+hierarchical_vq: False 
+k_step_preds: 1 # number of steps to predict into the future for the FDM
+context_len: ${data.context_len}
+
+# multi-step prediction for regularization
+multistep_prediction_rnn: False
+lstm_hidden_dim: 64
+
+# length of input sequence
+seq_len: ${data.seq_len}
+
+# weighing the VQ loss relative to the reconstruction loss
+commitment_loss_weight: 1.0
+
+recon_loss_weight: 1.0 
+
+action_pred_loss_weight: 1.0
+
+# apply normalization to the observation prediction (used for procgen)
+normalize_obs_pred: False
+
+idm_ckpt: null
+idm_ckpt_file: null
+
+# config for also training the action decoder:
+la_decoder:
+    use_lr_scheduler: False
+    decay_lr: null
+
+    # warmup_steps: 500
+    warmup_steps: 1000 
+    lr: 0.001
+    min_lr: 1e-4
+    eps: 1e-5
+
+    name: latent_action_decoder
+    image_obs: ${env.image_obs}
+    mlp_layer_sizes: [128, 128]
+    gaussian_policy: False
+
+    num_updates: 50_000
+    num_labelled_examples: 5_000
+    batch_size: ${data.batch_size}

@@ -1,0 +1,12 @@
+defaults:
+  - tf_base
+
+name: vit
+
+# patch size for Vision Transformer
+patch_size: [8, 8]
+image_shape: ${env.image_shape}
+
+embedding_dim: 256
+use_cls_embedding: False
+max_timesteps: 1000

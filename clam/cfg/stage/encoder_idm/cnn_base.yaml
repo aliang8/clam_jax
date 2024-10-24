@@ -1,0 +1,46 @@
+name: cnn_encoder
+
+# base number of channels
+scale: 24
+
+# output embedding size of the encoder
+output_embedding_dim: 128
+
+# defines the CNN architecture
+arch: 
+  - features: ${multiply:${...scale},1}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},2}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},4}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},8}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},16}
+    kernel_size: [3,3]
+    strides: 1
+    padding: "SAME"
+  - features: ${multiply:${...scale},32}
+    kernel_size: [2,2]
+    strides: 1
+    padding: "VALID"
+  
+# add batchnorm
+add_bn: True
+
+# add residual connections
+add_residual: True
+
+# add max pool layer
+add_max_pool: True
+
+# kernel size for max pool layer
+mp_kernel_size: 2

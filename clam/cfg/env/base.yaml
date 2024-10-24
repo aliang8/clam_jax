@@ -1,0 +1,18 @@
+default:
+  - split: test
+
+hp_name: e-${env.split.name}
+
+env_name: null
+env_id: null 
+
+# number of parallel envs to run during evaluation time
+num_envs: 50
+image_obs: null 
+
+# TODO:
+gamma: 0.999
+
+# TODO: not used
+task_dim: 1
+image_shape: null

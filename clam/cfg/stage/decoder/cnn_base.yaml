@@ -1,0 +1,40 @@
+name: cnn_decoder
+
+# base number of channels
+scale: 24
+
+# defines the CNN architecture
+arch: 
+  - features: ${multiply:${...scale},32}
+    kernel_size: [2,2]
+    strides: 2
+    padding: "SAME"
+  - features: ${multiply:${...scale},16}
+    kernel_size: [2,2]
+    strides: 2
+    padding: "SAME"
+  - features: ${multiply:${...scale},8}
+    kernel_size: [2,2]
+    strides: 2
+    padding: "SAME"
+  - features: ${multiply:${...scale},4}
+    kernel_size: [2,2]
+    strides: 2
+    padding: "SAME"
+  - features: ${multiply:${...scale},2}
+    kernel_size: [2,2]
+    strides: 2
+    padding: "SAME"
+  - features: ${multiply:${...scale},1}
+    kernel_size: [2,2]
+    strides: 2
+    padding: "SAME"
+
+# add batchnorm
+add_bn: True
+
+# add residual connections
+add_residual: True
+
+# number of output channels in the decoded image
+num_output_channels: 3

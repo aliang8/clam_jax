@@ -1,0 +1,16 @@
+defaults:
+  - base
+  - encoder: cnn_base
+
+name: vpt
+hp_name: ne-${data.num_examples}_e-${stage.encoder.name}-cl-${data.context_len}-nt-${data.num_trajs}
+
+idm:
+  image_obs: ${env.image_obs}
+  encoder_cfg: ${stage.encoder}
+
+  # used for continuous action spaces
+  gaussian_policy: False
+
+  # whether to use difference between states as input to IDM
+  use_state_diff: False

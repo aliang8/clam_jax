@@ -1,0 +1,15 @@
+defaults:
+  - base
+
+env_name: atari
+env_id: breakout
+
+eval_env_ids: 
+  - ${env.env_id}
+
+image_obs: True 
+
+# TODO: not used
+task_dim: 1
+image_shape: [64, 64]
+grayscale: True

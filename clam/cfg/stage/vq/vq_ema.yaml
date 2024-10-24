@@ -1,0 +1,26 @@
+defaults:
+  - base
+
+name: vq_ema
+hp_name: vq_ema_beta-${stage.vq.beta}_nc-${stage.vq.num_codes}_ncb-${stage.vq.num_codebooks}_cd-${stage.vq.emb_dim}_vqs-${stage.vq.seed}
+
+code_dim: 128
+
+# VectorQuantizer parameters
+# size of latent codebook
+num_codes: 64
+
+# number of codebooks (if we are using LAPO VQ implementation)
+num_codebooks: 2
+num_discrete_latents: 4
+
+num_embs: 16
+
+# beta term for the commitment loss, balances the importance of staying close to the codebook vectors
+beta: 0.05
+# parameter for VQ-EMA
+ema_decay: 0.999
+
+emb_dim: 16 
+
+seed: 2

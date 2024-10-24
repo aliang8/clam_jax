@@ -1,0 +1,24 @@
+hp_name: ${exp_prefix}_${stage.name}_s-${seed}_${env.hp_name}_${stage.hp_name}_${data.hp_name}
+
+# set the directory where the output files get saved
+hydra:
+  job:
+    name: ${hp_name}
+
+  output_subdir: null
+  run:
+    dir: results/${stage.name}/${hp_name}/${now:%Y-%m-%d}-${now:%H-%M-%S}
+  
+  sweep:
+    dir: results/${stage.name}/${now:%Y-%m-%d}-${now:%H-%M-%S}
+    subdir: ${hp_name}
+
+# set default stage and default training config based on task
+defaults:
+  - _self_
+  - base
+  - env: procgen
+  - stage: bc
+  - data: base
+  - override hydra/job_logging: disabled
+  - override hydra/launcher: local

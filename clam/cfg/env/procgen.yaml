@@ -1,0 +1,14 @@
+defaults:
+  - base
+  - split: test
+
+env_name: procgen
+env_id: bigfish
+
+image_obs: True 
+
+# TODO: not used
+task_dim: 1
+image_shape: [64, 64]
+grayscale: False
+max_episode_steps: 200 # following Raparthy et al. 2024 (ICL paper)

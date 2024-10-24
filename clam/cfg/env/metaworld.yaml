@@ -1,0 +1,14 @@
+defaults:
+  - base
+  - split: test
+
+hp_name: e-${env.env_id}
+
+env_name: metaworld
+env_id: pick-place-v2
+
+image_obs: False
+
+# TODO: not used
+task_dim: 3
+max_episode_steps: 500

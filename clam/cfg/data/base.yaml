@@ -1,0 +1,56 @@
+hp_name: d-${data.dataset_name}_ne-${data.num_examples}_t-${data.num_trajs}
+
+# where is the dataset stored
+data_dir: "/scr/shared/prompt_dtla"
+
+batch_size: 128
+dataset_name: ""
+
+# number of trajectories to use for training
+num_trajs: -1
+
+# number of training examples, -1 means use all
+num_examples: -1
+
+# percent of trajectories to use for training
+train_frac: 0.9
+
+# type of data, can be trajectories, lapo, or transitions
+# trajectories: each sample is the full sequence of transitions 
+# lapo: each sample is a window of N transitions
+# transitions: each sample is a single transition
+data_type: lapo
+
+# applies randaugmentation to dataset
+image_augmentations: False
+
+# number of timesteps to include as context, used for LAPO-style data
+# e.g. if context_len is 1, the data will contain o_t-1, o_t, o_t+1
+context_len: 1
+
+# TODO: add back the k step predictions: k_step_preds
+seq_len: ${resolve_context_len:${.data_type}, ${.context_len}, ${stage.k_step_preds}}
+
+# ICL - Raparthy et. al hyperparameters
+# number of trajectories to concatenate together for training
+num_few_shot_prompts: 0
+burstiness: 0.5
+
+# get a new set of prompts every evaluation
+resample_prompt_every_eval: False
+
+# if True, we load latent actions from a TFDS
+load_latent_actions: False
+
+# if True, we replace the ground truth action with the relabelled action, this is mainly for VPT
+replace_action_with_la: False
+
+# Decision Transformer hyperparameters 
+# number of steps to use as input for training
+context_window: 10
+
+# Load data generated from a random policy instead of expert data
+load_random_policy_data: False
+
+# use image observations, load images from tfds dataset
+use_image_obs: False

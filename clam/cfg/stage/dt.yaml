@@ -1,0 +1,44 @@
+defaults:
+  - base
+  - encoder: cnn_base
+  - transformer: tf_base
+
+name: dt
+hp_name: nt-${data.num_trajs}_cl-${data.context_len}_c-${stage.context_window}
+
+model:
+  image_obs: ${env.image_obs}
+  encoder_cfg: ${stage.encoder}
+  model_cfg: ${stage.transformer}
+
+  # whether the input sequence to DT contains the return-to-go
+  use_rtg: False
+
+  # whether to condition DT on the task
+  # the task is embedded as the first token in the sequence
+  task_conditioning: False
+
+  batch_first: True
+
+  # encode each token separately and then concatenate
+  encode_separate: True
+  
+  # maximum number of tokens in the input sequence
+  max_timesteps: ${env.max_episode_steps}
+
+  # hidden dimension to embed each token
+  embedding_dim: ${stage.encoder.output_embedding_dim}
+
+# this is mapping from transformer embedding to actions
+policy:
+  image_obs: False
+  pass_task_to_policy: False
+  embedding_dim: 128
+  mlp_layer_sizes: [128, 128]
+  gaussian_policy: False
+
+warmup_steps: 5_000
+
+# number of previous steps to include in the history
+# minimum of 1, this is just conditioning on the current state
+context_window: 20

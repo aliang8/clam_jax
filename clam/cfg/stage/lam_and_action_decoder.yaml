@@ -1,0 +1,11 @@
+defaults:
+  - lam
+
+name: lam_and_action_decoder
+
+mlp_layer_sizes: [128, 128]
+latent_action_dim: 128
+gaussian_policy: False
+
+train_action_decoder_every: 50
+update_steps_on_labelled_batch: 2

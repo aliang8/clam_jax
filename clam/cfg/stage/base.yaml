@@ -1,0 +1,22 @@
+# shared training configuration
+
+# use lr scheduler, currently supports linear warmup schedule
+use_lr_scheduler: True
+
+# number of steps before training starts
+warmup_steps: 10_000
+
+# parameters for AdamW optimizer
+lr: 3e-4
+eps: 1e-5
+
+num_updates: ${num_updates}
+min_lr: 3e-5
+
+# decay learning rate after warmup 
+decay_lr: null
+
+# length of input sequence
+seq_len: ${data.seq_len}
+
+k_step_preds: 0

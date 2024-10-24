@@ -1,0 +1,9 @@
+name: two_envs
+
+training_env_ids:
+  - bigfish 
+  - coinrun
+
+eval_env_ids:
+  - bigfish 
+  - coinrun

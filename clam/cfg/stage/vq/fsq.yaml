@@ -1,0 +1,6 @@
+defaults:
+  - base
+
+name: fsq
+
+levels: [8, 6, 5] # should be around 2^8 codes

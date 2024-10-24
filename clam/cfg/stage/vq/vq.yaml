@@ -1,0 +1,61 @@
+defaults:
+  - base
+
+name: vq
+
+hp_name: vq_c-${stage.vq.codebook_cls}_beta-${stage.vq.beta}_nc-${stage.vq.num_codes}_ncb-${stage.vq.num_codebooks}_cd-${stage.vq.code_dim}_t-${stage.vq.codebook_cfg.threshold_ema_dead_code}
+
+codebook_cfg:
+  num_codes: ${stage.vq.num_codes}
+
+  num_codebooks: ${stage.vq.num_codebooks}
+
+  learnable_codebook: ${stage.vq.learnable_codebook}
+
+  ema_decay: 0.999 
+
+  eps: ${stage.vq.eps}
+
+  ema_update: ${stage.vq.ema_update} 
+
+  # expiring old latent codes
+  # based on cluster size
+  # should actively replace any codes that have an exponential moving average cluster size less than 2
+  threshold_ema_dead_code: 0.0 
+
+  # dimension of latent codes
+  code_dim: ${stage.vq.code_dim}
+
+  # this is for sampling from pairwise distances 
+  straight_through: False
+  stochastic_sample_codes: False
+
+  sample_codebook_temp: 1.0
+
+  # affine params: https://proceedings.mlr.press/v202/huh23a/huh23a.pdf 
+  affine_params: False 
+  affine_param_batch_decay: 0.99 
+  affine_param_codebook_decay: 0.9
+  sync_affine_param: False
+
+# multiheaded VQ
+heads: 1
+separate_codebook_per_head: False
+
+# beta loss
+beta: 0.05 
+
+# negative of entropy
+codebook_diversity_loss_weight: 0.0
+
+codebook_diversity_temp: 100.0
+
+codebook_cls: "euclidean" # cosine
+
+learnable_codebook: False
+
+ema_update: True
+
+codebook_dim: null
+
+sync_update_v: 0

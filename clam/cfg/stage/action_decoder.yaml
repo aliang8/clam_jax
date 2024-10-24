@@ -1,0 +1,8 @@
+defaults:
+  - base
+
+name: latent_action_decoder
+hp_name: ne-${data.num_examples}
+
+mlp_layer_sizes: [128, 128]
+gaussian_policy: False

@@ -1,0 +1,53 @@
+exp_prefix: 'i001'
+exp_dir: '' # gets set in the trainer
+
+# seed - set to -1 to choose random seed
+seed: 521
+
+# wandb configurations
+use_wandb: False
+wandb_group: ''
+wandb_name: ${hp_name}
+wandb_entity: 'aliangdw'
+wandb_project: 'lam'
+wandb_notes: ''
+wandb_tags: 
+  - 'lam'
+group_name: ''
+
+# evaluation
+eval_every: -1 
+
+# number of update steps between logging to terminal
+log_terminal_every: 10_000
+
+# number of total evaluation steps to run
+num_evals: 30
+disable_tqdm: False 
+visualize_rollouts: True 
+run_eval_rollouts: False
+skip_first_eval: False 
+num_eval_rollouts: 50
+num_eval_rollouts_render: 4
+log_rollout_videos: False
+video_fps: 20
+visualize_latent_space: False
+
+# total number of gradient updates
+num_updates: 400_000
+num_eval_steps: 500
+
+# resume training
+load_from_ckpt: False 
+ckpt_step: -1
+mode: 'train'
+log_level: 'info'
+enable_jit: True
+save_key: null
+best_metric: 'max'
+
+# for pmapping
+num_xla_devices: 1
+multistage: False 
+
+debug: False

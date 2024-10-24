@@ -1,0 +1,14 @@
+name: null 
+
+num_codebooks: 1
+
+# size of the latent code
+code_dim: 64
+
+eps: 1e-5
+
+# number of discrete codes
+num_codes: 64
+
+commitment_loss_weight: 1.0
+recon_loss_weight: 1.0

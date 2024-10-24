@@ -1,0 +1,23 @@
+defaults:
+  - base
+  - encoder: mlp
+
+name: la_bc
+hp_name: nt-${data.num_trajs}
+
+decoder_ckpt: null
+lam_and_decoder_ckpt: null
+lam_ckpt: null
+
+decoder_ne: -1
+
+policy:
+  image_obs: ${env.image_obs}
+  encoder_cfg: ${stage.encoder}
+  pass_task_to_policy: False
+  embedding_dim: 128
+  mlp_layer_sizes: [128, 128]
+  gaussian_policy: False
+
+max_timesteps: ${env.max_episode_steps}
+k_step_preds: 1

@@ -1,0 +1,17 @@
+name: "transformer"
+
+hidden_dim: 128
+
+# number of attention heads
+num_heads: 8
+
+# number of transformer layers
+num_layers: 6
+
+# size of the key and queries used for attention 
+attn_size: 128
+
+# factor by which the dimension of the FFN layer is increased relative to the model's hidden size in transformer
+widening_factor: 4
+
+dropout_rate: 0.1

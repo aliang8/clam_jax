@@ -1,0 +1,10 @@
+defaults:
+  - vq
+
+
+name: residual_vq
+
+num_quantizers: 2
+
+# share codebook between each residual
+shared_codebook: False

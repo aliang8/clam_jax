@@ -1,0 +1,44 @@
+multistage: True
+
+hp_name: ${exp_prefix}_s-${seed}
+
+stage_1_overrides:
+  stage:
+    la_decoder:
+      num_labelled_examples: 10_000  
+  data:
+    num_trajs: -1
+
+  override_name: ne-${stage_1_overrides.stage.la_decoder.num_labelled_examples}_nt-${stage_1_overrides.data.num_trajs}  
+
+stage_2_overrides:
+  data:
+    num_trajs: 200
+    
+  run_eval_rollouts: True
+  override_name: d-${stage_2_overrides.data.num_trajs}
+
+# set default stage and default training config based on task
+defaults:
+  - base
+  - _self_
+  - env: procgen
+  - data: base
+  - stage@stage: lam_and_action_decoder # for defaults
+  - stage@stage1: lam_and_action_decoder
+  - stage@stage2: la_bc
+  - override hydra/job_logging: disabled
+  - override hydra/launcher: local
+
+# set the directory where the output files get saved
+hydra:
+  job:
+    name: ${hp_name}
+
+  output_subdir: null
+  run:
+    dir: results/${hp_name}/${now:%Y-%m-%d}-${now:%H-%M-%S}
+  
+  sweep:
+    dir: results/${now:%Y-%m-%d}-${now:%H-%M-%S}
+    subdir: ${hp_name}

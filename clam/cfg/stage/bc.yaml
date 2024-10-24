@@ -1,0 +1,22 @@
+defaults:
+  - base
+  - encoder: mlp
+
+name: bc
+hp_name: nt-${data.num_trajs}_gp-${.policy.gaussian_policy}
+
+policy:
+  image_obs: ${env.image_obs}
+  encoder_cfg: ${stage.encoder}
+  pass_task_to_policy: False
+  embedding_dim: 128
+  mlp_layer_sizes: [256, 256, 256]
+  gaussian_policy: False
+
+max_timesteps: ${env.max_episode_steps}
+
+warmup_steps: 500
+k_step_preds: 0    # unused
+
+# change base lr
+lr: 1e-3

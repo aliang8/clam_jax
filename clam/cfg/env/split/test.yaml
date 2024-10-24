@@ -1,0 +1,7 @@
+name: bigfish
+
+training_env_ids:
+  - bigfish 
+
+eval_env_ids:
+  - bigfish

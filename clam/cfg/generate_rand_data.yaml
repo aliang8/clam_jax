@@ -1,0 +1,9 @@
+defaults:
+  - config
+
+# for procgen, how many parallel environments to run
+num_parallel_envs: 1000
+generate: False
+
+# for procgen, how many timesteps to run each environment for
+max_timesteps_per_env: 2000 
